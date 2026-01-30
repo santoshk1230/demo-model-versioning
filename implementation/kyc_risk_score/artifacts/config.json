@@ -1,0 +1,19 @@
+{
+  "weights": {
+    "missing_age": 10,
+    "age_lt_21": 15,
+    "age_gt_65": 10,
+    "pan_not_verified": 25,
+    "aadhaar_not_verified": 20,
+    "address_mismatch": 20,
+    "high_risk_pincode": 15,
+    "device_change_each": 5
+  },
+  "caps": {
+    "device_change_cap": 15
+  },
+  "bands": {
+    "medium_min": 35,
+    "high_min": 65
+  }
+}
