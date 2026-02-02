@@ -4,117 +4,72 @@
 
 ## 1. Model Overview
 
-The Asset Basic Score model is designed to generate a standardized credit risk score for retail lending use cases.  
-It evaluates core borrower signals related to income stability, bureau behaviour, address verification, and employment continuity.
+**Asset Basic Score** is a canonical **rule-based credit risk scoring model** designed for retail lending use cases.
 
-The model is intended to be used across multiple lending clients with **client-specific configuration overrides**, while maintaining a single shared scoring engine.
+The model generates a standardized risk score using deterministic business rules and heuristics. It supports **multiple lending clients** through client-specific configuration and adapters, while maintaining **one shared canonical scoring engine**.
 
 ---
 
 ## 2. Model Classification
 
-- **Model Category**: Rule-Based / Heuristic  
-- **Primary Objective**: Credit Risk Scoring  
-- **Current Status**: Active (Demo / Training)
+- **Model Type**: Rule-Based / Heuristic  
+- **Primary Use Case**: Credit Risk Scoring  
+- **Execution Mode**: Configuration-driven  
+- **Current Status**: Active (Demo / Reference Implementation)
 
 ---
 
-## 3. Implementation Reference (Source of Truth)
+## 3. Architecture & Source of Truth
 
-This directory acts as a **model identity and index**.  
-The actual execution logic and artifacts are maintained under the implementation sub-folder.
-
-### 3.1 Execution / Engine
-
-- **Framework / Engine**: Custom Python rule engine  
-- **Execution Style**: Configuration-driven scoring
-
-### 3.2 Model Artifacts
-
-- **Scoring Logic**  
-  `models/asset_basic_score/implementation/inference/`
-
-- **Feature Logic**  
-  `models/asset_basic_score/implementation/features/`
-
-- **Configuration / Weights**  
-  `models/asset_basic_score/implementation/artifacts/`
-
-- **Client-Specific Overrides**  
-  `models/asset_basic_score/implementation/artifacts/clients/<client_name>/`
-
-- **Tests**  
-  `models/asset_basic_score/implementation/tests/`
+This directory represents the **model identity**. All executable logic and configuration are maintained under the `implementation/` folder.
 
 ---
 
-## 4. Interfaces (Contract Summary)
+## 3.1 Canonical Rule Engine (Model Identity)
 
-### Input Definition
+**Path** - models/asset_basic_score/implementation/rule_engine_config/
 
-Borrower and application-level attributes including, but not limited to:
-- Income information  
-- Bureau score and delinquency indicators  
-- Address verification status  
-- Employment stability indicators  
 
-(Exact input schema is documented in Confluence.)
+This layer customizes scoring behaviour **without changing the model**.
 
-### Output Definition
+**Structure**
+- `config/<client>/`  
+  Client-specific parameters (thresholds, weights, toggles) in JSON
+- `model/<client>/`  
+  Client adapters (`*.py`) that wire config to the canonical engine
+- `model/<client>/README.md`  
+  Ownership, approvals, audit trail, and client config version history
+- `test/`  
+  Client-level validation and sanity tests
 
-- Risk score (0–100)  
-- Risk band (LOW / MEDIUM / HIGH)  
-- Rule-level reason codes  
-
-### Output Scale
-
-0–100 (higher score indicates higher credit risk)
+Changes in this layer **do NOT create a new model version**.
 
 ---
 
-## 5. Deployment Context (Reference Only)
+## 4. Execution Model
 
-- **Execution Environment**: API / Batch (logical reference)  
-- **Deployment Scope**: Multi-client  
-- **Deployment Reference**: Git tag corresponding to approved release  
-  (e.g. `asset_basic_score/v1.0.0`)
+The model is designed to run as an **AWS Lambda-based rule engine**.
 
-Rollback is performed by reverting to a previous Git tag.
+**Entrypoint**
 
----
 
-## 6. Documentation (Authoritative Source)
+## Client Configuration Structure (Quick Access)
 
-Detailed documentation, validation notes, and release lineage are maintained in Confluence.
+Client-specific wiring is maintained under:
 
-- **Model Overview Page**: Asset Basic Score — Model Overview  
-- **Release History**: Maintained within the same Confluence page  
+- `models/asset_basic_score/implementation/rule_engine_config/model/<client>/`
 
-This README serves as the **Git-level technical index**.
+Each client directory contains:
+- A versioned Python adapter (e.g. `<Client>_1_0_0.py`) responsible only for connecting client configuration to the canonical rule engine.  
+  No business rules or scoring logic are implemented at this layer.
 
----
+Current client adapters present in the repository:
 
-## 7. Ownership and Support
+- `models/asset_basic_score/implementation/rule_engine_config/model/cholamandalam/Cholamandalam_1_0_0.py`
+- `models/asset_basic_score/implementation/rule_engine_config/model/equitas/Equitas_1_0_0.py`
+- `models/asset_basic_score/implementation/rule_engine_config/model/fibe/Fibe_1_0_0.py`
+- `models/asset_basic_score/implementation/rule_engine_config/model/incred/Incred_1_0_0.py`
+- `models/asset_basic_score/implementation/rule_engine_config/model/larsontubro/Larsontubro_1_0_0.py`
+- `models/asset_basic_score/implementation/rule_engine_config/model/poonawala/Poonawala_1_0_0.py`
 
-- **Owning Team**: Data Science  
-- **Primary Contact**: Santosh Kamble 
-- **Support Model**: Standard DS support and escalation process
-
----
-
-## 8. Change and Versioning Policy
-
-- **PATCH**: Parameter tuning or bug fixes without behaviour change  
-- **MINOR**: Rule additions or behaviour changes without contract change  
-- **MAJOR**: Input/output contract changes or scoring objective changes  
-
-All approved releases are tracked via **Git annotated tags**.
-
----
-
-## 9. Governance Note
-
-This model follows the standard model governance and versioning strategy:
-- Model identity is fixed  
-- Implementation evolves over time  
-- Releases are immutable and traceable via Git tags
+Client-level README files (covering ownership, approvals, and configuration change history) are planned and will be added as part of the governance hardening phase.
