@@ -1,0 +1,68 @@
+model_key: asset_basic_score
+model_name: "Asset Basic Score"
+status: active
+
+owner_team: "Data Science"
+primary_contact: "Asset Risk Modelling Team"
+business_owner: ""
+
+business_domain: "credit_risk"
+use_case: "asset_basic_scoring"
+objective: scoring
+target_entity: "loan_application"
+
+model_category: rule_based
+implementation_style: config_driven
+explainability: high
+
+interfaces:
+input_schema_type: json
+output_definition:
+- score_0_100
+- risk_band_low_medium_high
+- reason_codes_list
+output_scale: "0-100"
+has_thresholds: true
+
+multi_client:
+enabled: true
+strategy: "single_engine_client_overrides"
+clients:
+- poonawala
+- cholamandalam
+- fibe
+- equitas
+- incred
+- larsontubro
+client_config_path: "models/asset_basic_score/implementation/artifacts/clients/<client_name>/"
+
+execution_environment: "api_or_batch"
+environments:
+
+development
+latency_sensitivity: medium
+cost_sensitivity: medium
+
+runtime:
+language: python
+frameworks: "NA"
+artifact_type: "config_and_code"
+
+documentation_system: confluence
+confluence_model_overview_page: "Asset Basic Score — Model Overview (URL TBD)"
+
+release_strategy:
+versioning: semantic
+tagging: git_annotated
+tag_format: "asset_basic_score/v<major>.<minor>.<patch>"
+
+releases:
+
+version: v1.0.0
+git_tag: asset_basic_score/v1.0.0
+release_date: 2026-02-02
+change_type: major
+approval_status: draft
+description: >
+Initial demo release for multi-client model governance.
+Single shared engine with client-specific configuration overrides.
