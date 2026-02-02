@@ -65,11 +65,11 @@ Each client directory contains:
 
 Current client adapters present in the repository:
 
-- `models/asset_basic_score/implementation/rule_engine_config/model/cholamandalam/Cholamandalam_1_0_0.py`
-- `models/asset_basic_score/implementation/rule_engine_config/model/equitas/Equitas_1_0_0.py`
-- `models/asset_basic_score/implementation/rule_engine_config/model/fibe/Fibe_1_0_0.py`
-- `models/asset_basic_score/implementation/rule_engine_config/model/incred/Incred_1_0_0.py`
-- `models/asset_basic_score/implementation/rule_engine_config/model/larsontubro/Larsontubro_1_0_0.py`
-- `models/asset_basic_score/implementation/rule_engine_config/model/poonawala/Poonawala_1_0_0.py`
+- models/asset_basic_score/implementation/rule_engine_config/model/cholamandalam/README.md
+- models/asset_basic_score/implementation/rule_engine_config/model/equitas/README.md
+- models/asset_basic_score/implementation/rule_engine_config/model/fibe/README.md
+- models/asset_basic_score/implementation/rule_engine_config/model/incred/README.md
+- models/asset_basic_score/implementation/rule_engine_config/model/larsontubro/README.md
+- models/asset_basic_score/implementation/rule_engine_config/model/poonawala/README.md
 
 Client-level README files (covering ownership, approvals, and configuration change history) are planned and will be added as part of the governance hardening phase.

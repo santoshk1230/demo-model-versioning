@@ -1,68 +1,89 @@
-model_key: asset_basic_score
-model_name: "Asset Basic Score"
-status: active
+# tags.yml
+# Purpose:
+# - Source-of-truth registry for canonical model releases (Git tags on main)
+# - Human + machine readable (CI/CD, audits, Confluence sync, etc.)
 
-owner_team: "Data Science"
-primary_contact: "Asset Risk Modelling Team"
-business_owner: ""
+schema_version: "1.0"
 
-business_domain: "credit_risk"
-use_case: "asset_basic_scoring"
-objective: scoring
-target_entity: "loan_application"
-
-model_category: rule_based
-implementation_style: config_driven
-explainability: high
-
-interfaces:
-input_schema_type: json
-output_definition:
-- score_0_100
-- risk_band_low_medium_high
-- reason_codes_list
-output_scale: "0-100"
-has_thresholds: true
-
-multi_client:
-enabled: true
-strategy: "single_engine_client_overrides"
-clients:
-- poonawala
-- cholamandalam
-- fibe
-- equitas
-- incred
-- larsontubro
-client_config_path: "models/asset_basic_score/implementation/artifacts/clients/<client_name>/"
-
-execution_environment: "api_or_batch"
-environments:
-
-development
-latency_sensitivity: medium
-cost_sensitivity: medium
-
-runtime:
-language: python
-frameworks: "NA"
-artifact_type: "config_and_code"
-
-documentation_system: confluence
-confluence_model_overview_page: "Asset Basic Score — Model Overview (URL TBD)"
-
-release_strategy:
-versioning: semantic
-tagging: git_annotated
-tag_format: "asset_basic_score/v<major>.<minor>.<patch>"
+model:
+  name: "asset_basic_score"
+  type: "rule_based"
+  owner_team: "risk-ml"
+  canonical_layer_path: "models/asset_basic_score/implementation/rule_engine"
+  client_config_layer_path: "models/asset_basic_score/implementation/rule_engine_config"
+  versioning_policy:
+    canonical_logic:
+      versioned_by: "git_annotated_tag"
+      tag_branch: "main"
+      rule: "Any change under canonical_layer_path requires a new tag"
+    client_configs:
+      versioned_by:
+        - "filename_version_suffix"
+        - "git_history"
+      rule: "Client config changes do not require a model tag"
 
 releases:
+  - tag: "v1.0.0"
+    status: "active"
+    release_type: "major"        # major | minor | patch
+    date: "2026-02-02"           # YYYY-MM-DD
+    git:
+      branch: "main"
+      annotated: true
+    summary: "Initial canonical release for Asset Basic Score rule engine."
+    canonical_changes:
+      - area: "rule_engine"
+        notes:
+          - "Base rule execution framework"
+          - "Score aggregation logic"
+          - "Payload schema + validation"
+          - "Lambda entrypoint"
+    compatibility:
+      clients_supported:
+        # List clients known to have adapters/configs compatible with this canonical release
+        - client: "chola"
+          adapter_versions:
+            - "Chola_1_0_0"
+        - client: "equitas"
+          adapter_versions:
+            - "Equitas_1_0_0"
+        - client: "fibe"
+          adapter_versions:
+            - "Fibe_1_0_0"
+        - client: "hero"
+          adapter_versions:
+            - "Hero_1_0_0"
+        - client: "idfc"
+          adapter_versions:
+            - "Idfc_1_0_0"
+        - client: "ltfin"
+          adapter_versions:
+            - "Ltfin_1_0_0"
+        - client: "moneyview"
+          adapter_versions:
+            - "Moneyview_1_0_0"
+        - client: "piramal"
+          adapter_versions:
+            - "Piramal_1_0_0"
+    approvals:
+      requested_by: "TBD"
+      approved_by: "TBD"
+      approval_ref: "TBD"         # ticket / email / confluence link id
+    rollback:
+      method: "git_tag"
+      instruction: "Redeploy Lambda pinned to tag v1.0.0"
+    notes:
+      - "Client config changes are tracked in client READMEs + git history, not via tags."
 
-version: v1.0.0
-git_tag: asset_basic_score/v1.0.0
-release_date: 2026-02-02
-change_type: major
-approval_status: draft
-description: >
-Initial demo release for multi-client model governance.
-Single shared engine with client-specific configuration overrides.
+# Optional: registry-only metadata for client config governance (not model tags)
+client_config_governance:
+  required_fields_in_client_readme:
+    - "owner"
+    - "config_versions"
+    - "change_log"
+    - "approval"
+    - "audit_notes"
+  tests_minimum:
+    - "config_loads"
+    - "scoring_runs"
+    - "output_schema_valid"
