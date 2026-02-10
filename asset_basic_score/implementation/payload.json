@@ -1,0 +1,52 @@
+{
+  "response": {
+    "enrichedData": {
+      "nameMatchScore": 50,
+      "emailFirstSeenYear": 2020,
+      "phoneEmailFirstSeenYear": 2019,
+      "phoneNameFirstSeenYear": 2018,
+      "phoneDeactivatedDays": 100,
+      "riskyFintechCount": 1,
+      "fintechCount": 2,
+      "emailMappedWithPhone": 3,
+      "digitalIdentityScore": 0,
+      "phoneNameDIScore": null,
+      "badUglyMatchFound": null
+    },
+    "phoneSocial": {
+      "flipkart": true,
+      "whatsapp": true,
+      "isWABusiness": true
+    },
+    "phoneVpa": {
+      "upi": true,
+      "name": "ABC"
+    },
+    "phoneIntelligence": {
+      "numberBillingType": "prepaid"
+    },
+    "panVerificationBasic": {
+      "tax": false,
+      "panEmailPresent": false,
+      "dob": "2000-01-01",
+      "name": "ABC"
+    },
+    "ageOnNetwork": {
+      "dateAon": "2014-04-23"
+    },
+    "cdsl": {
+      "cdsl": true
+    },
+    "gst": {
+      "inactiveGstCount": 10
+    }
+  },
+  "m_version": "1_0_0",
+  "client_name": "pocketly",
+  "input": {
+    "email": "abc@gmail.com",
+    "phone": "9999999999",
+    "name": "ABC",
+    "pan": "AAAAA0000A"
+  }
+}
