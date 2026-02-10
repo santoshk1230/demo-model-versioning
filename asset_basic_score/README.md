@@ -209,11 +209,28 @@ This document serves as the **Git-level model index and reference**.
 
 ## 10. Quick Start
 
+### Dependencies Strategy
+
+**Production (Lambda):** Use `requirements-prod.txt`  
+**Local Development & Testing:** Use `requirements-dev.txt`
+
+| File | Purpose | Size | Use Case |
+|------|---------|------|----------|
+| `requirements-prod.txt` | Lambda-safe dependencies only | ~50 MB | AWS Lambda deployment |
+| `requirements-dev.txt` | Includes test tools + pandas/numpy | ~400 MB | Local testing, CI/CD |
+| `requirements.txt` | Deprecated; redirects to requirements-dev.txt | — | Legacy (use requirements-dev.txt instead) |
+
+**Why the split?**
+- Pandas, NumPy, and related packages are **only used in test files** (`rule_engine_config/test/*.py`)
+- Production rule engine (`rule_engine/`) contains no pandas/numpy imports
+- Lambda has a 250 MB deployment package limit; including heavy packages would exceed this
+- For Lambda, install only `requirements-prod.txt`
+
 ### Local Testing (Development)
 
-1. **Install dependencies:**
+1. **Install development dependencies (includes pandas/numpy for tests):**
    ```bash
-   pip install -r requirements.txt
+   pip install -r requirements-dev.txt
    ```
 
 2. **Run scoring with sample payload:**
@@ -228,6 +245,16 @@ This document serves as the **Git-level model index and reference**.
    pytest rule_engine_config/test/fibe_test_1_0_0.py -v
    pytest rule_engine_config/test/larsontubro_test_1_0_0.py -v
    ```
+
+### Lambda Deployment
+
+For serverless deployment, **use `requirements-prod.txt`** to keep the package size under 250 MB:
+
+```bash
+pip install -r requirements-prod.txt -t ./lambda_package/
+```
+
+This ensures the Lambda layer or deployment artifact remains within AWS size constraints.
 
 ### Adding a New Client
 
