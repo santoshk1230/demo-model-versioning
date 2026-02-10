@@ -1,0 +1,13 @@
+# Development and test requirements
+# Includes all production dependencies plus testing/analysis tools
+
+-r requirements-prod.txt
+
+# Testing
+pytest
+
+# Data analysis (used in tests only, not in Lambda)
+pandas>=2.0.0
+numpy<2.0
+numexpr>=2.10.0
+bottleneck>=1.4.0
