@@ -1,0 +1,148 @@
+# Asset Basic Score — Machine-Readable Model Registry
+# This file captures structured metadata for governance, traceability, and automation.
+
+## Model Identity (Required)
+model_key: asset_basic_score
+model_name: Asset Basic Score Model
+status: active
+
+## Ownership and Accountability
+owner_team: Data Science Team
+primary_contact: [Model Owner Name / Role]
+business_owner: [Risk / Product / Operations]
+
+## Business Classification
+business_domain: credit_risk | fraud_prevention | customer_onboarding
+use_case: multi_client_trust_scoring
+objective: scoring
+target_entity: customer | application
+
+## Model Classification
+model_category: rule_based
+implementation_style: config_driven
+explainability: high
+
+## Interfaces / Contract (Summary Only)
+input_schema_type: json
+input_schema_reference: rule_engine/schema/payload/DsScoreCalculator.py
+output_type: score_with_metadata
+output_scale: 0–1000 (configurable per client)
+has_thresholds: true
+pii: true
+
+## Deployment Context (Reference Only)
+execution_environment: aws_lambda | batch
+environments: development, staging, production
+latency_sensitivity: medium
+cost_sensitivity: medium
+
+## Technology / Stack
+runtime_language: python
+frameworks: internal_rule_engine
+artifact_type: config_and_code
+
+## Documentation and Traceability
+documentation_system: confluence
+confluence_lineage_page: asset_basic_score — Model Overview
+confluence_current_release_page: asset_basic_score — Model Overview (Change Log & Versioning)
+
+## Governance
+risk_level: medium
+regulatory_impact: medium
+
+## Versioning Strategy (CRITICAL FOR THIS MODEL)
+
+### Base Model Versioning
+# Tracks changes to rule engine core logic (rule.py, score_generator.py, utilities)
+base_model_current_version: v1.0.0
+base_model_git_tag_format: rule-engine-vX.Y.Z
+base_model_versioning_policy:
+  PATCH: bug_fixes | refactoring | parameter_tuning_without_logic_change
+  MINOR: new_rule_operators | enhanced_aggregation | new_utilities
+  MAJOR: rule_evaluation_redefinition | operator_semantic_changes | output_restructuring
+
+### Client Configuration Versioning
+# Tracks changes to client-specific rules and thresholds independently
+client_config_versioning_policy:
+  PATCH: threshold_tuning | parameter_adjustment
+  MINOR: new_rules_added | existing_rules_modified
+  MAJOR: rule_removal | input_schema_changes | contract_redefinition
+client_config_git_tag_format: "{client_name}-config-vX.Y.Z"
+
+### Supported Clients and Current Versions
+clients:
+  - name: pocketly
+    config_version: v1.0.0
+    config_path: rule_engine_config/config/pocketly/pocketly_1_0_0.json
+    compatible_base_model: ">=v1.0.0,<v2.0.0"
+    git_tag: pocketly-config-v1.0.0
+    
+  - name: fibe
+    config_version: v1.0.0
+    config_path: rule_engine_config/config/fibe/fibe_1_0_0.json
+    compatible_base_model: ">=v1.0.0,<v2.0.0"
+    git_tag: fibe-config-v1.0.0
+    
+  - name: larsontubro
+    config_version: v1.0.0
+    config_path: rule_engine_config/config/larsontubro/larsontubro_1_0_0.json
+    compatible_base_model: ">=v1.0.0,<v2.0.0"
+    git_tag: larsontubro-config-v1.0.0
+
+## Extensibility for Other Model Types
+
+# This framework supports Rule-Based, Heuristic, and ML models.
+# Implementations vary only in the "implementation" layer, not in governance.
+
+### For Heuristic Models
+# Use case: Phone Address Confidence Score
+# Strategy: Same versioning and documentation; rules replaced by heuristic logic (weighted aggregation)
+# Example: rule_engine/heuristic/phone_address_confidence_score.py instead of rules dict
+
+### For ML Models
+# Use case: Fraud prediction, propensity scoring
+# Strategy: Same versioning and documentation; rules replaced by model artifact (pickle/ONNX/TensorFlow)
+# Example: rule_engine/ml/fraud_classifier.py + artifacts/fraud_model_v1.pkl
+# Config: Feature engineering pipeline defined in JSON, model path in config
+
+## File Mappings (Source of Truth)
+model_core_logic: rule_engine/util/rule.py
+score_generator: rule_engine/src/score_generator.py
+lambda_handlers: rule_engine/app/{client}_app.py
+client_rule_models: rule_engine_config/model/{client}/{client}_vX_Y_Z.py
+client_rule_configs: rule_engine_config/config/{client}/{client}_vX_Y_Z.json
+test_suite: rule_engine_config/test/{client}_test_vX_Y_Z.py
+utilities: rule_engine/util/*.py
+logger: rule_engine/logger/cloudLogger.py
+schema_definition: rule_engine/schema/payload/DsScoreCalculator.py
+
+## How This Scales to Other Models
+
+### Rule-Based (Asset Basic Score — This Model)
+- Base Model: Rule evaluation engine (get_score function)
+- Client Config: Rule thresholds and field mappings (JSON)
+- Versioning: Independent base + client config versions
+
+### Heuristic (e.g., Phone Address Confidence Score)
+- Base Model: Aggregation and weighting logic
+- Client Config: Signal weights and calibration
+- Versioning: Same strategy, different implementation
+
+### ML (e.g., Fraud Detection, Propensity)
+- Base Model: Feature pipeline + inference wrapper
+- Client Config: Model artifact path, feature selection, thresholds
+- Versioning: Same strategy, artifact versioning aligned with config
+
+### Hybrid (Rule + ML)
+- Base Model: Combined execution (rules + inference)
+- Client Config: Rule + model versions, branching logic
+- Versioning: Same strategy, track both components
+
+All model types share:
+1. Same README.md structure
+2. Same tags.yml metadata format
+3. Same Confluence documentation layout
+4. Same Git versioning semantics
+5. Same approval and validation process
+
+This ensures consistency across the data science portfolio.

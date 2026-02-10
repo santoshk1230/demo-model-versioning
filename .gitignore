@@ -1,7 +1,51 @@
-.venv/
-.venvdemo/
-__pycache__/
-.pytest_cache/
-*.pyc
-.env
+# Root .gitignore for repository
+
+# OS
+Thumbs.db
 .DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+env*/
+.venv/
+venv/
+.venvdemo/
+.env
+
+# Virtualenv & dependency directories
+env*
+dependencies/
+
+# Jupyter
+.ipynb_checkpoints
+
+# Pytest
+.pytest_cache/
+
+# Distribution / packaging
+build/
+dist/
+.eggs/
+*.egg-info/
+
+# IDEs
+.vscode/
+*.code-workspace
+.idea/
+
+# Logs and databases
+*.log
+db.sqlite3
+
+# Coverage
+.coverage
+coverage.xml
+
+# Misc
+*.swp
+
+# Asset-specific (keep repo-level ignore for local builds)
+asset_basic_score/implementation/.venv/

@@ -1,0 +1,303 @@
+{
+    "rules": [
+        {
+            "rule": "cdsl_trigger_score",
+            "values": {
+                "cdsl": "cdsl.cdsl"
+            }
+        },
+        {
+            "rule": "indexed_name_match_trigger_score",
+            "values": {
+                "indexed_name_match_score": "enriched_data.name_match_score"
+            }
+        },
+        {
+            "rule": "email_first_seen_year_trigger_score",
+            "values": {
+                "email_first_seen_year": "enriched_data.email_first_seen_year"
+            }
+        },
+        {
+            "rule": "phone_email_first_seen_year_trigger_score",
+            "values": {
+                "phone_email_first_seen_year": "enriched_data.phone_email_first_seen_year"
+            }
+        },
+        {
+            "rule": "phone_name_first_seen_year_trigger_score",
+            "values": {
+                "phone_name_first_seen_year": "enriched_data.phone_name_first_seen_year"
+            }
+        },
+        {
+            "rule": "is_whatsapp_available_trigger_score",
+            "values": {
+                "whatsapp": "phone_social.whatsapp"
+            }
+        },
+        {
+            "rule": "is_tax_payer_trigger_score",
+            "values": {
+                "tax": "pan_verification_basic.tax"
+            }
+        },
+        {
+            "rule": "is_whatsapp_business_available_trigger_score",
+            "values": {
+                "is_w_a_business": "phone_social.is_w_a_business"
+            }
+        },
+        {
+            "rule": "is_postpaid_phone_trigger_score",
+            "values": {
+                "number_billing_type": "phone_intelligence.number_billing_type"
+            }
+        },
+        {
+            "rule": "phone_age_on_network_trigger_score",
+            "values": {
+                "date_aon": "age_on_network.date_aon"
+            }
+        },
+        {
+            "rule": "vpa_available_trigger_score",
+            "values": {
+                "vpa_available": "phone_vpa.upi"
+            }
+        },
+        {
+            "rule": "vpa_name_match_trigger_score",
+            "values": {
+                "input_name": "input_data.name",
+                "phone_vpa_name": "phone_vpa.name",
+                "vpa_available": "phone_vpa.upi"
+            }
+        },
+        {
+            "rule": "has_multiple_email_with_phone_trigger_score",
+            "values": {
+                "email_mapped_with_phone": "enriched_data.email_mapped_with_phone"
+            }
+        },
+        {
+            "rule": "di_phonedi_combined_trigger_score",
+            "values": {
+                "digital_identity_score": "enriched_data.digital_identity_score",
+                "phone_name_d_i_score": "enriched_data.phone_name_d_i_score"
+            }
+        },
+        {
+            "rule": "is_pan_email_present_trigger_score",
+            "values": {
+                "pan_email_present": "pan_verification_basic.pan_email_present"
+            }
+        },
+        {
+            "comment_": "check input for this feature from engineering",
+            "rule": "inactive_gst_trigger_score",
+            "values": {
+                "inactive_gst_count": "gst.inactive_gst_count"
+            }
+        },
+        {
+            "rule": "phonename_first_seen_trigger_score",
+            "values": {
+                "phone_name_first_seen_year": "enriched_data.phone_name_first_seen_year"
+            }
+        },
+        {
+            "rule": "is_ugly_bad_trigger_score",
+            "values": {
+                "bad_ugly_match_found": "enriched_data.bad_ugly_match_found"
+            }
+        },
+        {
+            "rule": "has_flipkart_trigger_score",
+            "values": {
+                "flipkart": "phone_social.flipkart"
+            }
+        },
+        {
+            "rule": "has_ported_trigger_score",
+            "values": {
+                "number_has_porting_history": "phone_intelligence.number_has_porting_history"
+            }
+        },
+        {
+            "rule": "email_repuation_trigger_score",
+            "values": {
+                "input_email": "input_data.email",
+                "email_first_seen_year": "enriched_data.email_first_seen_year"
+            }
+        },
+        {
+            "rule": "risky_fintech_ratio_trigger_score",
+            "values": {
+                "risky_fintech_count": "enriched_data.risky_fintech_count"
+            }
+        },
+        {
+            "rule": "phone_recycled_trigger_score",
+            "values": {
+                "phone_deactivated_days": "enriched_data.phone_deactivated_days"
+            }
+        },
+        {
+            "rule": "has_mutual_funds_trigger_score",
+            "values": {
+                "amc_count": "mutual_fund.amc_count"
+            }
+        },
+        {
+            "rule": "pan_name_match_trigger_score",
+            "values": {
+                "input_name": "input_data.name",
+                "pan_name": "pan_verification.name"
+            }
+        },
+        {
+            "rule": "phone_match_trigger_score",
+            "values": {
+                "pan_phone": "pan_verification.phone_number",
+                "input_phone": "input_data.phone"
+            }
+        },
+        {
+            "rule": "aadhar_trigger_score",
+            "values": {
+                "pan_aadhar_present": "pan_verification.aadhar_linked"
+            }
+        },
+        {
+            "rule": "email_domain_trigger_score",
+            "values": {
+                "pan_email_present": "pan_verification.email"
+            }
+        },
+        {
+            "rule": "email_match_trigger_score",
+            "values": {
+                "pan_email_present": "pan_verification.email",
+                "input_email": "input_data.email"
+            }
+        },
+        {
+            "rule": "uan_available_trigger_score",
+            "values": {
+                "uan_available": "mobile_uan.uan_available"
+            }
+        },
+        {
+            "rule": "phone_name_trigger_score",
+            "values": {
+                "diff_phone_name_count": "enriched_data.diff_phone_name_count"
+            }
+        },
+        {
+            "rule": "phone_first_seen_trigger_score",
+            "values": {
+                "phone_first_seen_year": "enriched_data.phone_first_seen_year"
+            }
+        },
+        {
+            "rule": "phone_name_first_seen_tag",
+            "values": {
+                "phone_name_first_seen_year": "enriched_data.phone_name_first_seen_year"
+            }
+        },
+        {
+            "rule": "phone_email_match_trigger_score",
+            "values": {
+                "phone_email_match": "enriched_data.phone_email_match"
+            }
+        },
+        {
+            "rule": "is_indiamart_available_trigger_score",
+            "values": {
+                "indiamart": "phone_social.indiamart"
+            }
+        },
+        {
+            "rule": "is_instagram_available_trigger_score",
+            "values": {
+                "instagram": "phone_social.instagram"
+            }
+        },
+        {
+            "rule": "is_paytm_available_trigger_score",
+            "values": {
+                "paytm": "phone_social.paytm"
+            }
+        },
+        {
+            "rule": "din_trigger_score",
+            "values": {
+                "din": "din_details.din"
+            }
+        },
+        {
+            "rule": "udyam_trigger_score",
+            "values": {
+                "udyam": "phone_udyam.udyam"
+            }
+        },
+        {
+            "rule": "is_whatsapp_flipkart_absent_trigger_score",
+            "values": {
+                "flipkart": "phone_social.flipkart",
+                "whatsapp": "phone_social.whatsapp"
+            }
+        },
+        {
+            "comment_": "check input for this feature from engineering",
+            "rule": "is_demat_trigger_score",
+            "values": {
+                "is_demat_available": "cdsl.cdsl"
+            }
+        },
+        {
+            "rule": "age_limit_trigger_score",
+            "values": {
+                "pan_birth_date": "pan_verification_basic.dob"
+            }
+        },
+        {
+            "rule": "is_uan_presenet_trigger_score",
+            "values": {
+                "uan_available": "mobile_uan.uan_available"
+            }
+        },
+        {
+            "rule": "phone_name_discore_binned_trigger_score",
+            "values": {
+                "phone_name_d_i_score": "enriched_data.phone_name_d_i_score"
+            }
+        },
+        {
+            "rule": "numbers_in_email_trigger_score",
+            "values": {
+                "input_email": "input_data.email"
+            }
+        },
+        {
+            "rule": "has_swiggy_trigger_score",
+            "values": {
+                "swiggy": "phone_social.swiggy"
+            }
+        },
+        {
+            "rule": "is_swiggy_whatsapp_absent_trigger_score",
+            "values": {
+                "swiggy": "phone_social.swiggy",
+                "whatsapp": "phone_social.whatsapp"
+            }
+        },
+        {
+            "rule": "has_gst_trigger_score",
+            "values": {
+                "has_gst": "phone_gst.has_gst"
+            }
+        }
+    ]
+}
