@@ -205,6 +205,58 @@ This document serves as the **Git-level model index and reference**.
 - Release change logs
 - Operational runbooks
 
+
+## 9A. Runtime Version Registry
+
+This section reflects the deployed and historical versions.  
+Add every new release as a **new row at the top** of the relevant table.
+
+---
+
+### A) Base Model (Rule Engine Core) — Version History
+
+| Date | Base Version | Git Tag | Change Type (PATCH/MINOR/MAJOR) | Summary | Approved By | Confluence Link |
+|------|-------------|--------|----------------------------------|---------|------------|----------------|
+| YYYY-MM-DD | v1.0.0 | `rule-engine-v1.0.0` | MAJOR | Initial production release |  |  |
+|  |  |  |  |  |  |  |
+
+---
+
+### B) Pocketly — Version History
+
+| Date | Current Version | Config Tag (Optional) | Files | Change Type | Summary | Approved By | Confluence Page Link |
+|------|------------------|-----------------------|-------|------------|---------|------------|----------------------|
+| YYYY-MM-DD | v1.0.0 | `pocketly-config-v1.0.0` | `pocketly_1_0_0.json`, `pocketly_1_0_0.py` | MAJOR | Initial config onboarding |  |  |
+|  |  |  |  |  |  |  |  |
+
+---
+
+### C) Fibe — Version History
+
+| Date | Current Version | Config Tag (Optional) | Files | Change Type | Summary | Approved By | Confluence Page Link |
+|------|------------------|-----------------------|-------|------------|---------|------------|----------------------|
+| YYYY-MM-DD | v1.0.0 | `fibe-config-v1.0.0` | `fibe_1_0_0.json`, `fibe_1_0_0.py` | MAJOR | Initial config onboarding |  |  |
+|  |  |  |  |  |  |  |  |
+
+---
+
+### D) Larsen & Toubro — Version History
+
+| Date | Current Version | Config Tag (Optional) | Files | Change Type | Summary | Approved By | Confluence Page Link |
+|------|------------------|-----------------------|-------|------------|---------|------------|----------------------|
+| YYYY-MM-DD | v1.0.0 | `larsontubro-config-v1.0.0` | `larsontubro_1_0_0.json`, `larsontubro_1_0_0.py` | MAJOR | Initial config onboarding |  |  |
+|  |  |  |  |  |  |  |  |
+
+---
+
+### Governance Rules
+
+- Add new releases as the first row.
+- Do not edit historical rows.
+- Git tag must match the version mentioned here.
+- Confluence release/approval page must exist before production deployment.
+
+
 ---
 
 ## 10. Quick Start
@@ -291,3 +343,5 @@ This ensures the Lambda layer or deployment artifact remains within AWS size con
 
 **Last Updated:** [YYYY-MM-DD]  
 **Maintained By:** Data Science Team
+
+
